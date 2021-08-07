@@ -49,7 +49,8 @@ parseLayoutLines :: [Token] -> Layout
 parseLayoutLines = Horizontal . map Unit . getWidgets
 
 getWidgets :: [Token] -> [Widget]
-getWidgets []                         = []
+getWidgets []                         = []             -- I'm keeping span for simplicity but a function able to know when there is no 
+                                                       -- `ConstructorEnd` element should be used.
 getWidgets (ButtonConstructor   : xs) = let (words, xss) = span (/= ConstructorEnd) xs in createButton   words : getWidgets (tail xss)
 getWidgets (CheckBoxConstructor : xs) = let (words, xss) = span (/= ConstructorEnd) xs in createCheckBox words : getWidgets (tail xss)
 getWidgets (TextConstructor     : xs) = let (words, xss) = span (/= ConstructorEnd) xs in createText     words : getWidgets (tail xss)

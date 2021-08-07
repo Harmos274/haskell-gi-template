@@ -8,8 +8,6 @@ module Lib
 import qualified GI.Gtk as Gtk
 import Data.GI.Base
 import GtkQuoter (gtk)
-import Lexer (lexe)
-import Parser (parse, Window)
 
 createWindow :: IO ()
 createWindow = do

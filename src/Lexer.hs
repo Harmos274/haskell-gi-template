@@ -7,7 +7,7 @@ data Token = Word String
            | ButtonConstructor
            | CheckBoxConstructor
            | TextConstructor
-           | ConstructorEnd deriving (Eq)
+           | ConstructorEnd deriving Eq
 
 type Lines = [String]
 type Words = [String]
