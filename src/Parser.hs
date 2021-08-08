@@ -3,6 +3,7 @@ module Parser
     Window (..),
     Layout (..),
     Widget (..),
+    Label (..),
   ) where
 
 import Data.List (unwords)

@@ -23,6 +23,7 @@ dependencies:
 - base >= 4.7 && < 5
 - template-haskell
 - haskell-gi-base
+- text
 - gi-gtk == 3.0.*
 
 library:
