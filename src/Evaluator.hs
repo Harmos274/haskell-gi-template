@@ -31,32 +31,15 @@ populateWindow box Nothing                 = return ()
 populateWindow box (Just (Vertical verts)) = mapM_ (populateWindowLine box) verts
 populateWindow _   _                       = error "Top level layout is supposed to be vertical."
 
-
 populateWindowLine :: Gtk.Box -> Layout -> IO ()
-populateWindowLine box (Horizontal horz) = do
-  h_box <- new Gtk.Box [ #orientation := Gtk.OrientationHorizontal ]
-
-  mapM_ (populateWindowRow h_box) horz
-
-  #add box h_box
-  return ()
+populateWindowLine box (Horizontal horz) = new Gtk.Box [#orientation := Gtk.OrientationHorizontal] >>= populateWindowLine' box horz
 populateWindowLine _   _                 = error "Rows needs an Horizontal layout."
 
+populateWindowLine' :: Gtk.Box -> [Layout] -> Gtk.Box -> IO ()
+populateWindowLine' box horz h_box = mapM_ (populateWindowRow h_box) horz >> #add box h_box
 
 populateWindowRow :: Gtk.Box -> Layout -> IO ()
-populateWindowRow box (Unit (Button (Label label))) = do
-  button <- new Gtk.Button [ #label := pack label ]
-
-  #add box button
-  return ()
-populateWindowRow box (Unit (CheckBox (Label label))) = do
-  checkbox <- new Gtk.CheckButton [ #label := pack label ]
-
-  #add box checkbox
-  return ()
-populateWindowRow box (Unit (Text (Label label))) = do
-  label <- new Gtk.Label [ #label := pack label ]
-
-  #add box label
-  return ()
-populateWindowRow _ _ = error "Rows can only be populated by widgets."
+populateWindowRow box (Unit (Button (Label label)))   = new Gtk.Button      [ #label := pack label ] >>= #add box
+populateWindowRow box (Unit (CheckBox (Label label))) = new Gtk.CheckButton [ #label := pack label ] >>= #add box
+populateWindowRow box (Unit (Text (Label label)))     = new Gtk.Label       [ #label := pack label ] >>= #add box
+populateWindowRow _   _                               = error "Rows can only be populated by widgets."
