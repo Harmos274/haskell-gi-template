@@ -1,13 +1,20 @@
 # haskell-gi-template
 
+THIS IS AN EXPERIMENTATION PROJECT
+
+I just quickly wrote this to experiment with Gtk in Haskell and Template/Quasi Quotation.
+
 # Gtk Quasi Quotation Syntax
 
-```
-MyWindow
+```haskell
+import GtkQuoter (gtk)
 
-<t: text>
+-- 
 
-<b: button>
+[gtk| MyWindow
+      <t: text>
+      <b: button>
+|]
 ```
 
 | Pattern        | Meaning             |
